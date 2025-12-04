@@ -1,0 +1,71 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "AirHealth",
+        "description": "Enter your AirHealth API key and SAL code",
+        "data": {
+          "api_key": "API key",
+          "sal_code": "SAL code"
+        }
+      },
+      "endpoints": {
+        "title": "Select endpoints",
+        "description": "Choose which AirHealth APIs you have subscribed to",
+        "data": {
+          "grass_pollen": "Grass pollen forecast",
+          "other_allergens": "Other allergens forecast",
+          "aq_woodsmoke": "Air quality and woodsmoke forecast"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Failed to connect to the AirHealth API",
+      "invalid_auth": "Invalid API key or SAL code",
+      "unknown": "Unexpected error occurred"
+    },
+    "abort": {
+      "already_configured": "This SAL code is already configured"
+    }
+  },
+  "entity": {
+    "sensor": {
+      "grass_level_day0": {
+        "name": "Grass pollen today"
+      },
+      "grass_level_day1": {
+        "name": "Grass pollen tomorrow"
+      },
+      "grass_level_day2": {
+        "name": "Grass pollen day 3"
+      },
+      "overall_level_day0": {
+        "name": "Overall allergens today"
+      },
+      "overall_level_day1": {
+        "name": "Overall allergens tomorrow"
+      },
+      "overall_level_day2": {
+        "name": "Overall allergens day 3"
+      },
+      "aq_level_day0": {
+        "name": "Air quality today"
+      },
+      "aq_level_day1": {
+        "name": "Air quality tomorrow"
+      },
+      "aq_level_day2": {
+        "name": "Air quality day 3"
+      },
+      "woodsmoke_level_day0": {
+        "name": "Woodsmoke level today"
+      },
+      "woodsmoke_level_day1": {
+        "name": "Woodsmoke level tomorrow"
+      },
+      "woodsmoke_level_day2": {
+        "name": "Woodsmoke level day 3"
+      }
+    }
+  }
+}

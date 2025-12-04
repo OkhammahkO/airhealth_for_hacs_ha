@@ -1,0 +1,14 @@
+{
+  "domain": "airhealth",
+  "name": "AirHealth",
+  "config_flow": true,
+  "documentation": "https://github.com/OkhammahkO/prj-airhealth",
+  "issue_tracker": "https://github.com/OkhammahkO/prj-airhealth/issues",
+  "codeowners": [
+    "@OkhammahkO"
+  ],
+  "version": "0.2.0",
+  "requirements": [],
+  "iot_class": "cloud_polling",
+  "integration_type": "service"
+}
