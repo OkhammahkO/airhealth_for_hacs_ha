@@ -82,10 +82,11 @@ class AirHealthSensor(AirHealthEntity, SensorEntity):
                 day_data = forecast[self._day_idx]
                 attributes = {"date": day_data.get("date")}
 
-                # Add level icon for the main sensor value
-                level = self.native_value
-                if level:
-                    attributes["level_icon"] = get_level_icon(str(level))
+                # Add level icon for pollen sensors only (not air quality)
+                if self._endpoint_key in (ENDPOINT_GRASS_POLLEN, ENDPOINT_OTHER_ALLERGENS):
+                    level = self.native_value
+                    if level:
+                        attributes["level_icon"] = get_level_icon(str(level))
 
                 # Add endpoint-specific attributes
                 if self._endpoint_key == ENDPOINT_OTHER_ALLERGENS:
@@ -104,13 +105,12 @@ class AirHealthSensor(AirHealthEntity, SensorEntity):
                 elif self._endpoint_key == ENDPOINT_AQ_WOODSMOKE:
                     if self._sensor_key == "aq_level":
                         # For AQ sensor, include woodsmoke and supporting data
-                        woodsmoke_level = day_data.get("woodsmoke_level")
-                        attributes["woodsmoke_level"] = woodsmoke_level
-                        if woodsmoke_level:
-                            attributes["woodsmoke_icon"] = get_level_icon(woodsmoke_level)
+                        # Note: Air quality uses different categories, no level_icon
+                        attributes["woodsmoke_level"] = day_data.get("woodsmoke_level")
                         attributes["supporting_data"] = day_data.get("supporting_data")
                     elif self._sensor_key == "woodsmoke_level":
                         # For woodsmoke sensor, include supporting data
+                        # Note: Woodsmoke uses different categories, no level_icon
                         attributes["supporting_data"] = day_data.get("supporting_data")
 
                 return attributes
