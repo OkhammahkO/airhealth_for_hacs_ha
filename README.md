@@ -13,7 +13,7 @@ Home Assistant integration for the [AirHealth](https://www.airhealthlab.com/inde
 
 - Fixed updates at API-specific times to conserve API quota usage.
 - Detailed attributes including allergen breakdowns and supporting air quality data
-- Easy configuration through Home Assistant UI
+- Easy set-up via [HACS](https://www.hacs.xyz/)
 
 ## Installation
 
