@@ -2,7 +2,7 @@
 
 [![hacs_badge](https://img.shields.io/badge/HACS-Custom-orange.svg)](https://github.com/hacs/integration)
 
-Home Assistant integration for [AirHealth Services](https://www.airhealth.net.au/), providing Australian environmental health data including:
+Home Assistant integration for [AirHealth Services API](https://www.airhealthlab.com/index.php), providing Australian air quality data including:
 
 - Grass pollen forecasts
 - Other allergen forecasts (plantain, birch, etc.)
@@ -11,10 +11,8 @@ Home Assistant integration for [AirHealth Services](https://www.airhealth.net.au
 
 ## Features
 
-- 3-day forecasts for all available data
-- Automatic updates at API-specific times (7:00 AM, 7:30 AM, 9:00 AM AEST)
+- Fixed updates at API-specific times
 - Detailed attributes including allergen breakdowns and supporting air quality data
-- Service-based device grouping
 - Easy configuration through Home Assistant UI
 
 ## Installation
@@ -64,6 +62,17 @@ Each sensor includes detailed attributes with additional data from the API.
 
 - Home Assistant 2024.1.0 or newer
 - AirHealth API subscription and credentials
+
+### Getting API Access
+
+Before installing this integration, you'll need an AirHealth API account:
+
+1. Visit the [AirHealth API website](https://www.airhealthlab.com/index.php/airhealth-api)
+2. Contact AirHealth to confirm pricing and sign-up details
+3. Once your account and plan are set up, you'll be able to:
+   - Generate an API key for your use
+   - Use their tool to find your SAL (Statistical Area Level) code
+4. Save your API key and SAL code securely - you'll need them during integration setup
 
 ## Support
 
