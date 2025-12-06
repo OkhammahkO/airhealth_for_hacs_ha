@@ -11,24 +11,24 @@ Home Assistant integration for the [AirHealth](https://www.airhealthlab.com/inde
 
 ## Features
 
+- Detailed sensor attributes including allergen breakdowns and supporting air quality data
 - Fixed updates at API-specific times to conserve API quota usage.
-- Detailed attributes including allergen breakdowns and supporting air quality data
 - Easy set-up via [HACS](https://www.hacs.xyz/)
 
 ## Installation
 
 ### Getting API Access
 
-Before installing this integration, you'll need an AirHealth API account and (paid) plan:
+To use this integration, you'll need an AirHealth API account and (paid) plan:
 
 1. Visit the [AirHealth API website](https://www.airhealthlab.com/index.php/airhealth-api)
 2. Contact AirHealth to confirm pricing and sign-up details (The API service is new so things may change)
 3. Once your account and plan are set up, you'll be able to:
    - Generate an API key for your use
-   - Use their tool to find your SAL (Statistical Area Level) code
-4. Save your API key and SAL code (securely) - you'll need them during integration setup
+   - Use their tool to find your SAL (Statistical Area Level) code (similar to "your suburb")
+4. Save your API key and SAL code (securely) - you'll need them during the integration setup.
 
-### HACS (Recommended)
+### Add Integration using [HACS](https://www.hacs.xyz/) 
 
 1. Open HACS in your Home Assistant instance
 2. Click on "Integrations"
