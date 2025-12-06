@@ -1,0 +1,137 @@
+name: CI
+
+on:
+  push:
+    branches: [main, feature/*, fix/*]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install ruff
+
+      - name: Run Ruff linting
+        run: ruff check custom_components/airhealth/
+
+      - name: Run Ruff formatting check
+        run: ruff format --check custom_components/airhealth/
+
+  type-check:
+    name: Type Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install mypy homeassistant
+
+      - name: Run mypy
+        run: mypy custom_components/airhealth/ --ignore-missing-imports
+        continue-on-error: true  # Don't fail build on type errors initially
+
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.11", "3.12"]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pytest pytest-homeassistant-custom-component pytest-cov
+
+      - name: Run tests with coverage
+        run: |
+          pytest custom_components/airhealth/tests/ \
+            --cov=custom_components.airhealth \
+            --cov-report=xml \
+            --cov-report=term-missing
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        if: matrix.python-version == '3.11'
+        with:
+          files: ./coverage.xml
+          fail_ci_if_error: false
+          token: ${{ secrets.CODECOV_TOKEN }}
+
+  validate:
+    name: Validate
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Validate hacs.json
+        run: |
+          python -m json.tool hacs.json > /dev/null
+
+      - name: Validate manifest.json
+        run: |
+          python -m json.tool custom_components/airhealth/manifest.json > /dev/null
+
+      - name: Validate strings.json
+        run: |
+          python -m json.tool custom_components/airhealth/strings.json > /dev/null
+
+      - name: Check for required files
+        run: |
+          test -f README.md || exit 1
+          test -f LICENSE || exit 1
+          test -f CHANGELOG.md || exit 1
+          test -f custom_components/airhealth/__init__.py || exit 1
+          test -f custom_components/airhealth/manifest.json || exit 1
+
+  hassfest:
+    name: Hassfest
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Hassfest validation
+        uses: home-assistant/actions/hassfest@master
+
+  hacs:
+    name: HACS Validation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: HACS validation
+        uses: hacs/action@main
+        with:
+          category: integration
