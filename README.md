@@ -2,7 +2,7 @@
 
 [![hacs_badge](https://img.shields.io/badge/HACS-Custom-orange.svg)](https://github.com/hacs/integration)
 
-Home Assistant integration for the [AirHealth Services](https://www.airhealthlab.com/index.php) API, providing Australian air quality data including:
+Home Assistant integration for the [AirHealth](https://www.airhealthlab.com/index.php) API, providing Australian air quality data including:
 
 - Grass pollen forecasts
 - Other allergen forecasts (plantain, birch, etc.)
