@@ -29,3 +29,25 @@ API_ENDPOINTS = {
         "update_minute": 0,
     },
 }
+
+
+def get_level_icon(level: str | None) -> str:
+    """Return colored circle icon for level.
+
+    Args:
+        level: The level string (Low, Moderate, High, Extreme, None)
+
+    Returns:
+        Colored circle emoji representing the level
+    """
+    if not level:
+        return "⚪"
+
+    level_icons = {
+        "Low": "🟢",
+        "None": "🟢",
+        "Moderate": "🟡",
+        "High": "🟠",
+        "Extreme": "🔴",
+    }
+    return level_icons.get(level, "⚪")

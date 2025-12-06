@@ -9,7 +9,12 @@ from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.typing import StateType
 
-from .const import ENDPOINT_AQ_WOODSMOKE, ENDPOINT_GRASS_POLLEN, ENDPOINT_OTHER_ALLERGENS
+from .const import (
+    ENDPOINT_AQ_WOODSMOKE,
+    ENDPOINT_GRASS_POLLEN,
+    ENDPOINT_OTHER_ALLERGENS,
+    get_level_icon,
+)
 from .coordinator import AirHealthConfigEntry
 from .entity import AirHealthEntity
 
@@ -77,14 +82,35 @@ class AirHealthSensor(AirHealthEntity, SensorEntity):
                 day_data = forecast[self._day_idx]
                 attributes = {"date": day_data.get("date")}
 
+                # Add level icon for the main sensor value
+                level = self.native_value
+                if level:
+                    attributes["level_icon"] = get_level_icon(str(level))
+
                 # Add endpoint-specific attributes
                 if self._endpoint_key == ENDPOINT_OTHER_ALLERGENS:
-                    # Include full allergen breakdown
-                    attributes["allergens"] = day_data.get("allergens")
+                    # Include full allergen breakdown with icons
+                    allergens = day_data.get("allergens")
+                    if allergens:
+                        # Add level_icon to each allergen
+                        allergens_with_icons = []
+                        for allergen in allergens:
+                            allergen_copy = allergen.copy()
+                            allergen_level = allergen.get("level")
+                            if allergen_level:
+                                allergen_copy["level_icon"] = get_level_icon(allergen_level)
+                            allergens_with_icons.append(allergen_copy)
+                        attributes["allergens"] = allergens_with_icons
                 elif self._endpoint_key == ENDPOINT_AQ_WOODSMOKE:
                     if self._sensor_key == "aq_level":
                         # For AQ sensor, include woodsmoke and supporting data
-                        attributes["woodsmoke_level"] = day_data.get("woodsmoke_level")
+                        woodsmoke_level = day_data.get("woodsmoke_level")
+                        attributes["woodsmoke_level"] = woodsmoke_level
+                        if woodsmoke_level:
+                            attributes["woodsmoke_icon"] = get_level_icon(woodsmoke_level)
+                        attributes["supporting_data"] = day_data.get("supporting_data")
+                    elif self._sensor_key == "woodsmoke_level":
+                        # For woodsmoke sensor, include supporting data
                         attributes["supporting_data"] = day_data.get("supporting_data")
 
                 return attributes

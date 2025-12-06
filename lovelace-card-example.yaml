@@ -1,0 +1,119 @@
+# AirHealth Lovelace Card Example
+# Copy this configuration into your Lovelace dashboard
+
+# Simple Section View - Today's Data Prominent
+type: vertical-stack
+cards:
+  # Today's Forecast (Prominent)
+  - type: section
+    title: Today's Air Health
+    cards:
+      - type: glance
+        entities:
+          - entity: sensor.airhealth_grass_day0
+            name: Grass Pollen
+          - entity: sensor.airhealth_other_allergens_day0
+            name: Other Allergens
+          - entity: sensor.airhealth_air_quality_day0
+            name: Air Quality
+          - entity: sensor.airhealth_woodsmoke_day0
+            name: Woodsmoke
+        card_mod:
+          style: |
+            ha-card {
+              {% set grass = states('sensor.airhealth_grass_day0') %}
+              {% set allergens = states('sensor.airhealth_other_allergens_day0') %}
+              {% set air = states('sensor.airhealth_air_quality_day0') %}
+              {% set smoke = states('sensor.airhealth_woodsmoke_day0') %}
+              {% if 'Extreme' in [grass, allergens, air, smoke] %}
+                background: rgba(139, 0, 0, 0.2);
+                border-left: 4px solid darkred;
+              {% elif 'High' in [grass, allergens, air, smoke] %}
+                background: rgba(255, 69, 0, 0.15);
+                border-left: 4px solid orangered;
+              {% elif 'Moderate' in [grass, allergens, air, smoke] %}
+                background: rgba(255, 165, 0, 0.1);
+                border-left: 4px solid orange;
+              {% else %}
+                background: rgba(34, 139, 34, 0.1);
+                border-left: 4px solid green;
+              {% endif %}
+            }
+
+  # 3-Day Forecast Details
+  - type: section
+    title: 3-Day Forecast
+    cards:
+      # Grass Pollen
+      - type: entities
+        title: Grass Pollen
+        entities:
+          - entity: sensor.airhealth_grass_day0
+            name: Today
+          - entity: sensor.airhealth_grass_day1
+            name: Tomorrow
+          - entity: sensor.airhealth_grass_day2
+            name: Day After
+
+      # Other Allergens
+      - type: entities
+        title: Other Allergens
+        entities:
+          - entity: sensor.airhealth_other_allergens_day0
+            name: Today
+          - entity: sensor.airhealth_other_allergens_day1
+            name: Tomorrow
+          - entity: sensor.airhealth_other_allergens_day2
+            name: Day After
+
+      # Air Quality & Woodsmoke
+      - type: entities
+        title: Air Quality & Woodsmoke
+        entities:
+          - entity: sensor.airhealth_air_quality_day0
+            name: Air Quality Today
+          - entity: sensor.airhealth_air_quality_day1
+            name: Air Quality Tomorrow
+          - entity: sensor.airhealth_air_quality_day2
+            name: Air Quality Day After
+          - entity: sensor.airhealth_woodsmoke_day0
+            name: Woodsmoke Today
+          - entity: sensor.airhealth_woodsmoke_day1
+            name: Woodsmoke Tomorrow
+          - entity: sensor.airhealth_woodsmoke_day2
+            name: Woodsmoke Day After
+
+# ============================================
+# Alternative: Simple Version WITHOUT card-mod
+# ============================================
+# If you don't want to install card-mod, use individual entity cards
+# which support state_color natively:
+
+# type: vertical-stack
+# cards:
+#   - type: section
+#     title: Today's Air Health
+#     cards:
+#       - type: horizontal-stack
+#         cards:
+#           - type: entity
+#             entity: sensor.airhealth_grass_day0
+#             name: Grass Pollen
+#             state_color: true
+#           - type: entity
+#             entity: sensor.airhealth_other_allergens_day0
+#             name: Other Allergens
+#             state_color: true
+#       - type: horizontal-stack
+#         cards:
+#           - type: entity
+#             entity: sensor.airhealth_air_quality_day0
+#             name: Air Quality
+#             state_color: true
+#           - type: entity
+#             entity: sensor.airhealth_woodsmoke_day0
+#             name: Woodsmoke
+#             state_color: true
+
+# Note: state_color uses default HA colors. For custom colors per level,
+# you'll need to customize sensor attributes or use card-mod.

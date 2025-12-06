@@ -41,6 +41,7 @@ Development notes and current status for the AirHealth integration.
 ## Testing
 
 Run tests:
+
 ```bash
 pytest custom_components/airhealth/tests/
 ```
