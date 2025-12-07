@@ -29,6 +29,7 @@ To use this integration, you'll need an AirHealth API account and (paid) plan:
 4. Save your API key and SAL code (securely) - you'll need them during the integration setup.
 
 ### Add Integration using [HACS](https://www.hacs.xyz/) 
+Note: if any step doesn't work, try a Home Assistant restart and try again.
 
 1. Open HACS in your Home Assistant instance
 2. Click on "Integrations"
