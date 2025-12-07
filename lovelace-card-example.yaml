@@ -1,8 +1,8 @@
 type: grid
 cards:
   - type: heading
-    heading_style: subtitle
-    heading: "Air Health"
+    heading_style: title
+    heading: Air Health
     icon: mdi:medication
     badges:
       - type: entity
@@ -10,6 +10,7 @@ cards:
         show_icon: true
         entity: sensor.airhealth_grass_day0
         state_content: level_icon
+        color: light-grey
       - type: entity
         show_state: true
         show_icon: false
@@ -25,6 +26,7 @@ cards:
         show_icon: true
         entity: sensor.airhealth_other_allergens_day0
         state_content: level_icon
+        color: light-grey
       - type: entity
         show_state: true
         show_icon: false
@@ -41,7 +43,7 @@ cards:
   - type: tile
     entity: sensor.airhealth_grass_day0
     name: Grass
-    color: disabled
+    color: grey
     state_content:
       - level_icon
       - state
@@ -50,7 +52,7 @@ cards:
   - type: tile
     entity: sensor.airhealth_other_allergens_day0
     name: Allergens
-    color: disabled
+    color: grey
     state_content:
       - level_icon
       - state
@@ -59,7 +61,7 @@ cards:
   - type: tile
     entity: sensor.airhealth_woodsmoke_day0
     name: Wood Smoke
-    color: disabled
+    color: grey
     state_content:
       - level_icon
       - state
@@ -68,7 +70,7 @@ cards:
   - type: tile
     entity: sensor.airhealth_air_quality_day0
     name: Air Quality
-    color: disabled
+    color: grey
     state_content:
       - level_icon
       - state
