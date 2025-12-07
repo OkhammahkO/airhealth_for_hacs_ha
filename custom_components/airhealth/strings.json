@@ -10,12 +10,17 @@
         }
       },
       "endpoints": {
-        "title": "Select endpoints",
-        "description": "Choose which AirHealth APIs you have subscribed to",
+        "title": "Select the data you want to track",
+        "description": "Choose which allergen and air quality forecasts to display. Each provides a 3-day forecast updated daily.",
         "data": {
-          "grass_pollen": "Grass pollen forecast",
-          "other_allergens": "Other allergens forecast",
-          "aq_woodsmoke": "Air quality and woodsmoke forecast"
+          "grass_pollen": "Grass pollen",
+          "other_allergens": "Other allergens",
+          "aq_woodsmoke": "Air quality & woodsmoke"
+        },
+        "data_description": {
+          "grass_pollen": "Daily grass pollen levels and forecasts (Updated: 7:30 AM AEST)",
+          "other_allergens": "Tree, weed, and mold allergen levels (Updated: 9:00 AM AEST)",
+          "aq_woodsmoke": "Air quality index and woodsmoke levels (Updated: 9:00 AM AEST)"
         }
       }
     },

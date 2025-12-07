@@ -7,6 +7,7 @@ from aiohttp import ClientError
 
 from homeassistant.config_entries import ConfigFlow, ConfigFlowResult
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
+from homeassistant.helpers import selector
 
 from .api import AirHealthApiClient, AirHealthAuthError, AirHealthDataError
 from .const import API_ENDPOINTS, CONF_API_KEY, CONF_SAL_CODE, DOMAIN
@@ -77,7 +78,10 @@ class AirHealthConfigFlow(ConfigFlow, domain=DOMAIN):
             )
 
         schema = vol.Schema(
-            {vol.Required(ep_key, default=True): bool for ep_key in API_ENDPOINTS}
+            {
+                vol.Required(ep_key, default=True): selector.BooleanSelector()
+                for ep_key in API_ENDPOINTS
+            }
         )
 
         return self.async_show_form(step_id="endpoints", data_schema=schema)

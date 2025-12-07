@@ -27,7 +27,7 @@ API_ENDPOINTS = {
     },
     ENDPOINT_AQ_WOODSMOKE: {
         "path": "/v1/aq-woodsmoke",
-        "update_hour": 7,
+        "update_hour": 9,
         "update_minute": 0,
     },
 }
