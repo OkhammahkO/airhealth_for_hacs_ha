@@ -88,6 +88,13 @@ class AirHealthSensor(AirHealthEntity, SensorEntity):
                     if level:
                         attributes["level_icon"] = get_level_icon(str(level))
 
+                # Add metadata from coordinator
+                endpoint_data = self.coordinator.data.get(self._endpoint_key, {})
+                if "last_successful_update" in endpoint_data:
+                    attributes["last_successful_update"] = endpoint_data["last_successful_update"]
+                if "api_status" in endpoint_data:
+                    attributes["api_status"] = endpoint_data.get("api_status", "unavailable")
+
                 # Add endpoint-specific attributes
                 if self._endpoint_key == ENDPOINT_OTHER_ALLERGENS:
                     # Include full allergen breakdown with icons

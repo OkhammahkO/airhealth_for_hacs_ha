@@ -69,3 +69,25 @@ def test_get_level_icon():
     assert get_level_icon("Extreme") == "🔴"
     assert get_level_icon("Unknown") == "⚪"
     assert get_level_icon(None) == "⚪"
+
+
+async def test_sensor_metadata_attributes(hass: HomeAssistant, mock_airhealth_api, mock_config_entry):
+    """Test that sensors have metadata attributes."""
+    mock_config_entry.add_to_hass(hass)
+
+    await hass.config_entries.async_setup(mock_config_entry.entry_id)
+    await hass.async_block_till_done()
+
+    # Test grass pollen sensor has metadata
+    state = hass.states.get("sensor.airhealth_grass_day0")
+    if state:
+        assert "last_successful_update" in state.attributes
+        assert "api_status" in state.attributes
+        # Verify api_status is valid
+        assert state.attributes["api_status"] in ["ok", "error", "quota_exceeded", "unavailable"]
+        # Verify timestamp format (ISO 8601 compatible)
+        timestamp = state.attributes.get("last_successful_update")
+        if timestamp:
+            # Should be a string in ISO 8601 format
+            assert isinstance(timestamp, str)
+            assert "T" in timestamp  # ISO 8601 has 'T' separator

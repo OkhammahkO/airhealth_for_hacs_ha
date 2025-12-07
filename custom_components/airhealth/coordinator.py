@@ -1,7 +1,7 @@
 """DataUpdateCoordinator for AirHealth integration."""
 
 from collections.abc import Callable
-from datetime import timedelta
+from datetime import datetime, timedelta, timezone
 import logging
 from typing import Any
 
@@ -84,17 +84,37 @@ class AirHealthDataUpdateCoordinator(DataUpdateCoordinator[dict[str, Any]]):
                 data = await self.api_client.async_get_data(
                     endpoint_info["path"], self.sal_code
                 )
-                fetched_data[endpoint_key] = data
+                # Wrap data with metadata
+                fetched_data[endpoint_key] = {
+                    "forecast": data.get("forecast", []),
+                    "last_successful_update": datetime.now(timezone.utc).isoformat(),
+                    "api_status": "ok",
+                }
             except AirHealthAuthError as err:
-                raise UpdateFailed(
-                    f"Authentication failed for {endpoint_key}: {err}"
-                ) from err
+                # Authentication errors - check for quota exceeded (403)
+                if self.data and endpoint_key in self.data:
+                    _LOGGER.warning(
+                        "Authentication failed for %s (quota exceeded?), using cached data: %s",
+                        endpoint_key,
+                        err,
+                    )
+                    fetched_data[endpoint_key] = {
+                        **self.data[endpoint_key],
+                        "api_status": "quota_exceeded",
+                    }
+                else:
+                    raise UpdateFailed(
+                        f"Authentication failed for {endpoint_key}: {err}"
+                    ) from err
             except AirHealthDataError as err:
                 if self.data and endpoint_key in self.data:
                     _LOGGER.warning(
                         "Failed to fetch %s, using cached data: %s", endpoint_key, err
                     )
-                    fetched_data[endpoint_key] = self.data[endpoint_key]
+                    fetched_data[endpoint_key] = {
+                        **self.data[endpoint_key],
+                        "api_status": "error",
+                    }
                 else:
                     raise UpdateFailed(
                         f"Failed to fetch {endpoint_key}: {err}"
