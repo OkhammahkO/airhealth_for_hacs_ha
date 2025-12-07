@@ -1,4 +1,4 @@
-type: grid
+type: vertical-stack
 cards:
   - type: heading
     heading_style: title
@@ -37,43 +37,45 @@ cards:
         show_icon: false
         entity: sensor.airhealth_other_allergens_day2
         state_content: level_icon
-    grid_options:
-      columns: 12
-      rows: auto
-  - type: tile
-    entity: sensor.airhealth_grass_day0
-    name: Grass
-    color: grey
-    state_content:
-      - level_icon
-      - state
-    vertical: false
-    features_position: bottom
-  - type: tile
-    entity: sensor.airhealth_other_allergens_day0
-    name: Allergens
-    color: grey
-    state_content:
-      - level_icon
-      - state
-    vertical: false
-    features_position: bottom
-  - type: tile
-    entity: sensor.airhealth_woodsmoke_day0
-    name: Wood Smoke
-    color: grey
-    state_content:
-      - level_icon
-      - state
-    vertical: false
-    features_position: bottom
-  - type: tile
-    entity: sensor.airhealth_air_quality_day0
-    name: Air Quality
-    color: grey
-    state_content:
-      - level_icon
-      - state
-    vertical: false
-    features_position: bottom
-column_span: 1
+  - type: horizontal-stack
+    cards:
+      - type: tile
+        entity: sensor.airhealth_grass_day0
+        name: Grass
+        color: grey
+        state_content:
+          - level_icon
+          - state
+        vertical: false
+        features_position: bottom
+      - type: tile
+        entity: sensor.airhealth_other_allergens_day0
+        name: Allergens
+        color: grey
+        state_content:
+          - level_icon
+          - state
+        vertical: false
+        features_position: bottom
+  - type: horizontal-stack
+    cards:
+      - type: tile
+        entity: sensor.airhealth_woodsmoke_day0
+        name: Wood Smoke
+        color: grey
+        state_content:
+          - level_icon
+          - state
+        vertical: false
+        features_position: bottom
+      - type: tile
+        entity: sensor.airhealth_air_quality_day0
+        name: Air Quality
+        color: grey
+        state_content:
+          - level_icon
+          - state
+        vertical: false
+        features_position: bottom
+  - type: markdown
+    content: " {{ states.sensor.airhealth_other_allergens_day0.attributes.summary }}"
