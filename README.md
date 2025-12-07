@@ -35,7 +35,7 @@ Note: if any step doesn't work, try a Home Assistant restart and try again.
 2. Click on "Integrations"
 3. Click the three dots in the top right corner
 4. Select "Custom repositories"
-5. Add `https://github.com/OkhammahkO/prj-airhealth` as a custom repository
+5. Add `https://github.com/OkhammahkO/airhealth_for_hacs_ha` as a custom repository
 6. Select "Integration" as the category
 7. Click "Add"
 8. Find "AirHealth" in the integration list and click "Download"
