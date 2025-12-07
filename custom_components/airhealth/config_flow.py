@@ -56,7 +56,9 @@ class AirHealthConfigFlow(ConfigFlow, domain=DOMAIN):
             step_id="user",
             data_schema=vol.Schema(
                 {
-                    vol.Required(CONF_API_KEY): str,
+                    vol.Required(CONF_API_KEY): selector.TextSelector(
+                        selector.TextSelectorConfig(type=selector.TextSelectorType.PASSWORD)
+                    ),
                     vol.Required(CONF_SAL_CODE): str,
                 }
             ),
