@@ -4,6 +4,7 @@ from collections.abc import Callable
 from datetime import datetime, timedelta, timezone
 import logging
 from typing import Any
+from zoneinfo import ZoneInfo
 
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
@@ -87,7 +88,7 @@ class AirHealthDataUpdateCoordinator(DataUpdateCoordinator[dict[str, Any]]):
                 # Wrap data with metadata
                 fetched_data[endpoint_key] = {
                     "forecast": data.get("forecast", []),
-                    "last_successful_update": datetime.now(timezone.utc).isoformat(),
+                    "last_successful_update": datetime.now(ZoneInfo(self.hass.config.time_zone)).isoformat(),
                     "api_status": "ok",
                 }
             except AirHealthAuthError as err:

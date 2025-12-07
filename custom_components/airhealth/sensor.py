@@ -14,6 +14,8 @@ from .const import (
     ENDPOINT_GRASS_POLLEN,
     ENDPOINT_OTHER_ALLERGENS,
     get_level_icon,
+    summarize_allergen_breakdown,
+    summarize_grass_pollen,
 )
 from .coordinator import AirHealthConfigEntry
 from .entity import AirHealthEntity
@@ -88,12 +90,19 @@ class AirHealthSensor(AirHealthEntity, SensorEntity):
                     if level:
                         attributes["level_icon"] = get_level_icon(str(level))
 
+                # Add summary for grass pollen (day0 and day1 only)
+                if self._endpoint_key == ENDPOINT_GRASS_POLLEN and self._day_idx in (0, 1):
+                    attributes["summary"] = summarize_grass_pollen(self.native_value)
+
                 # Add metadata from coordinator
                 endpoint_data = self.coordinator.data.get(self._endpoint_key, {})
                 if "last_successful_update" in endpoint_data:
                     attributes["last_successful_update"] = endpoint_data["last_successful_update"]
                 if "api_status" in endpoint_data:
                     attributes["api_status"] = endpoint_data.get("api_status", "unavailable")
+
+                # Add SAL code for location identification
+                attributes["sal_code"] = self.coordinator.sal_code
 
                 # Add endpoint-specific attributes
                 if self._endpoint_key == ENDPOINT_OTHER_ALLERGENS:
@@ -109,6 +118,12 @@ class AirHealthSensor(AirHealthEntity, SensorEntity):
                                 allergen_copy["level_icon"] = get_level_icon(allergen_level)
                             allergens_with_icons.append(allergen_copy)
                         attributes["allergens"] = allergens_with_icons
+
+                        # Add summary for day0 and day1 only
+                        if self._day_idx in (0, 1):
+                            attributes["summary"] = summarize_allergen_breakdown(
+                                self.native_value, allergens
+                            )
                 elif self._endpoint_key == ENDPOINT_AQ_WOODSMOKE:
                     if self._sensor_key == "aq_level":
                         # For AQ sensor, include woodsmoke and supporting data
