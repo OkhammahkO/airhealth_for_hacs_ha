@@ -20,11 +20,10 @@ classifiers = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/OkhammahkO/prj-airhealth"
-Documentation = "https://github.com/OkhammahkO/prj-airhealth#readme"
-Repository = "https://github.com/OkhammahkO/prj-airhealth"
-Issues = "https://github.com/OkhammahkO/prj-airhealth/issues"
-Changelog = "https://github.com/OkhammahkO/prj-airhealth/blob/main/CHANGELOG.md"
+Homepage = "https://github.com/OkhammahkO/airhealth_for_hacs_ha"
+Documentation = "https://github.com/OkhammahkO/airhealth_for_hacs_ha#readme"
+Repository = "https://github.com/OkhammahkO/airhealth_for_hacs_ha"
+Issues = "https://github.com/OkhammahkO/airhealth_for_hacs_ha/issues"
 
 [tool.ruff]
 target-version = "py311"

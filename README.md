@@ -72,7 +72,7 @@ Each sensor includes detailed attributes with additional data from the API.
 
 ## Support
 
-For issues, feature requests, or questions, please [open an issue](https://github.com/OkhammahkO/prj-airhealth/issues).
+For issues, feature requests, or questions, please [open an issue](https://github.com/OkhammahkO/airhealth_for_hacs_ha/issues).
 
 ## License
 
