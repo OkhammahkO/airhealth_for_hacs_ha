@@ -1,4 +1,5 @@
 {
   "name": "AirHealth",
-  "render_readme": true
+  "render_readme": true,
+  "country": ["AU"]
 }

@@ -16,6 +16,8 @@
 | 💨 Air quality | PM2.5, O3 | 9:00 AM, 1:00 PM, 5:00 PM, 9:00 PM daily |
 | 🔥 Woodsmoke | — | 9:00 AM daily |
 
+For more details see thier [docs](https://api-public.airhealthservices.au/docs/#endpoint-specs).
+
 ## Requirements
 
 - Home Assistant + [HACS](https://www.hacs.xyz/)
