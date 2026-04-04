@@ -4,24 +4,25 @@
 [![hacs_badge](https://img.shields.io/badge/HACS-Custom-orange.svg)](https://github.com/hacs/integration)
 [![Built with Claude Code](https://img.shields.io/badge/built%20with-Claude-blueviolet)](https://claude.ai)
 
-- AirHealth is the company behind [Melbourne Pollen](https://www.melbournepollen.com.au/) (and its sister sites).
+- [AirHealth](https://www.airhealthlab.com/) is the company behind [Melbourne Pollen](https://www.melbournepollen.com.au/) (and sister sites).
 - In addition to the websites and mobile apps, they offer a [paid API](https://api-public.airhealthservices.au/docs/) for data access.
-- This repo is a [HACS](https://www.hacs.xyz/) custom component for integrating this data into [Home Assistant](https://www.home-assistant.io/).
-- AirHealth provides 3-day forecasts (today, tomorrow, in 2 days) with "levels":
+- It provides 3-day forecasts (today, tomorrow, day after) with severity levels (Low, Medium, High, etc.) across Australia. See summary below or their [docs](https://api-public.airhealthservices.au/docs/#endpoint-specs) for full details.
+- This repository is a community-maintained [HACS](https://www.hacs.xyz/) custom integration for bringing the API data feed into [Home Assistant](https://www.home-assistant.io/). It is not maintained by Airhealth.
+- This enables automations to manage air quality exposure, such as controlling air purifiers, notifications, and window operation.
 
-| Sensor | Details | Updated (AEST) |
+## Sensor Overview
+| Category | Details | Updated (AEST) |
 |--------|----------|----------------|
 | 🌿 Grass pollen | — | 7:30 AM daily |
-| 🌸 Other allergens | Alternaria, Olive, Eucalypts, more | 9:00 AM daily |
+| 🌸 Other allergens | Tree pollen (Birch, Cypress, Eucalypt, Olive, Plane), weed pollen (Plantain), and fungal spores (Alternaria) | 9:00 AM daily |
 | 💨 Air quality | PM2.5, O3 | 9:00 AM, 1:00 PM, 5:00 PM, 9:00 PM daily |
 | 🔥 Woodsmoke | — | 9:00 AM daily |
 
-For more details see thier [docs](https://api-public.airhealthservices.au/docs/#endpoint-specs).
 
 ## Requirements
 
 - Home Assistant + [HACS](https://www.hacs.xyz/)
-- AirHealth API subscription - [get one here](https://api-public.airhealthservices.au/docs/) (paid service)
+- AirHealth account and API subscription - [get one here](https://api-public.airhealthservices.au/docs/) (paid service)
 
 ## Installation
 
