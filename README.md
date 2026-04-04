@@ -33,7 +33,7 @@ For more details see thier [docs](https://api-public.airhealthservices.au/docs/#
 
 ## Support
 
-- [Home Assistant Community thread](https://community.home-assistant.io/t/placeholder) — questions, discussion, feedback
+- [Home Assistant Community thread](https://community.home-assistant.io/t/airhealth-hacs-integration-australian-pollen-air-quality/1001501/1) — questions, discussion, feedback
 - [Open an issue](https://github.com/OkhammahkO/airhealth_for_hacs_ha/issues) — bugs & feature requests
 
 ## License
