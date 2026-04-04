@@ -34,7 +34,6 @@ class AirHealthSensor(AirHealthEntity, SensorEntity):
         day_idx: int,
         icon: str,
         entity_id_suffix: str,
-        name: str,
     ) -> None:
         """Initialize the sensor."""
         super().__init__(coordinator)
@@ -47,7 +46,6 @@ class AirHealthSensor(AirHealthEntity, SensorEntity):
         )
         self._attr_translation_key = f"{sensor_key}_day{day_idx}"
         self._attr_icon = icon
-        self._attr_name = name
         # Suggest entity_id for cleaner IDs
         self.entity_id = f"sensor.airhealth_{entity_id_suffix}_day{day_idx}"
 
@@ -155,9 +153,6 @@ async def async_setup_entry(
 
     sensors = []
 
-    # Day name helper
-    day_names = ["today", "tomorrow", "in 2 days"]
-
     # Grass pollen sensors
     if ENDPOINT_GRASS_POLLEN in coordinator.data:
         forecast = coordinator.data[ENDPOINT_GRASS_POLLEN].get("forecast", [])
@@ -170,7 +165,6 @@ async def async_setup_entry(
                     day_idx,
                     "mdi:grass",
                     "grass",
-                    f"Grass pollen {day_names[day_idx]}",
                 )
             )
 
@@ -186,7 +180,6 @@ async def async_setup_entry(
                     day_idx,
                     "mdi:flower-pollen",
                     "other_allergens",
-                    f"Other allergens {day_names[day_idx]}",
                 )
             )
 
@@ -203,7 +196,6 @@ async def async_setup_entry(
                         day_idx,
                         "mdi:air-filter",
                         "air_quality",
-                        f"Air quality {day_names[day_idx]}",
                     ),
                     AirHealthSensor(
                         coordinator,
@@ -212,7 +204,6 @@ async def async_setup_entry(
                         day_idx,
                         "mdi:smoke",
                         "woodsmoke",
-                        f"Woodsmoke {day_names[day_idx]}",
                     ),
                 ]
             )

@@ -12,6 +12,8 @@ from .coordinator import AirHealthDataUpdateCoordinator
 class AirHealthEntity(CoordinatorEntity[AirHealthDataUpdateCoordinator]):
     """Base class for AirHealth entities."""
 
+    _attr_has_entity_name = True
+
     def __init__(self, coordinator: AirHealthDataUpdateCoordinator) -> None:
         """Initialize AirHealth entity."""
         super().__init__(coordinator)

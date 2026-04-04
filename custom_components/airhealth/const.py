@@ -17,18 +17,15 @@ ENDPOINT_AQ_WOODSMOKE = "aq_woodsmoke"
 API_ENDPOINTS = {
     ENDPOINT_GRASS_POLLEN: {
         "path": "/v1/grass-pollen",
-        "update_hour": 7,
-        "update_minute": 30,
+        "update_times": [(7, 30)],
     },
     ENDPOINT_OTHER_ALLERGENS: {
         "path": "/v1/other-allergens",
-        "update_hour": 9,
-        "update_minute": 0,
+        "update_times": [(9, 0)],
     },
     ENDPOINT_AQ_WOODSMOKE: {
         "path": "/v1/aq-woodsmoke",
-        "update_hour": 9,
-        "update_minute": 0,
+        "update_times": [(9, 0), (13, 0), (17, 0), (21, 0)],
     },
 }
 

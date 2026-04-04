@@ -43,7 +43,7 @@ def mock_config_entry() -> MockConfigEntry:
 def mock_airhealth_api() -> Generator[AsyncMock]:
     """Mock AirHealthApiClient."""
     with patch(
-        "custom_components.airhealth.coordinator.AirHealthApiClient", autospec=True
+        "custom_components.airhealth.AirHealthApiClient", autospec=True
     ) as mock:
         client = mock.return_value
 

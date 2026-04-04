@@ -180,9 +180,9 @@ async def test_endpoints_step_all_enabled(
     result = await hass.config_entries.flow.async_configure(
         result["flow_id"],
         {
-            "grass": True,
+            "grass_pollen": True,
             "other_allergens": True,
-            "air_quality": True,
+            "aq_woodsmoke": True,
         },
     )
 
@@ -191,9 +191,9 @@ async def test_endpoints_step_all_enabled(
     assert result["data"] == {
         CONF_API_KEY: "test_api_key",
         CONF_SAL_CODE: "12345",
-        "grass": True,
+        "grass_pollen": True,
         "other_allergens": True,
-        "air_quality": True,
+        "aq_woodsmoke": True,
     }
 
 
@@ -220,17 +220,17 @@ async def test_endpoints_step_partial_enabled(
     result = await hass.config_entries.flow.async_configure(
         result["flow_id"],
         {
-            "grass": True,
+            "grass_pollen": True,
             "other_allergens": False,
-            "air_quality": True,
+            "aq_woodsmoke": True,
         },
     )
 
     assert result["type"] == FlowResultType.CREATE_ENTRY
     assert result["title"] == "AirHealth (SAL 67890)"
-    assert result["data"]["grass"] is True
+    assert result["data"]["grass_pollen"] is True
     assert result["data"]["other_allergens"] is False
-    assert result["data"]["air_quality"] is True
+    assert result["data"]["aq_woodsmoke"] is True
 
 
 async def test_endpoints_step_shows_form(
@@ -258,7 +258,7 @@ async def test_endpoints_step_shows_form(
 
     # Check that all endpoint keys are in the schema
     schema_keys = list(result["data_schema"].schema.keys())
-    assert len(schema_keys) == 3  # grass, other_allergens, air_quality
-    assert any("grass" in str(key) for key in schema_keys)
+    assert len(schema_keys) == 3  # grass_pollen, other_allergens, aq_woodsmoke
+    assert any("grass_pollen" in str(key) for key in schema_keys)
     assert any("other_allergens" in str(key) for key in schema_keys)
-    assert any("air_quality" in str(key) for key in schema_keys)
+    assert any("aq_woodsmoke" in str(key) for key in schema_keys)

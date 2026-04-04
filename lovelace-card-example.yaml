@@ -41,7 +41,7 @@ cards:
     cards:
       - type: tile
         entity: sensor.airhealth_grass_day0
-        name: Grass
+        name: Grass pollen today
         color: grey
         state_content:
           - level_icon
@@ -50,7 +50,7 @@ cards:
         features_position: bottom
       - type: tile
         entity: sensor.airhealth_other_allergens_day0
-        name: Allergens
+        name: Other allergens today
         color: grey
         state_content:
           - level_icon
@@ -61,19 +61,17 @@ cards:
     cards:
       - type: tile
         entity: sensor.airhealth_woodsmoke_day0
-        name: Wood Smoke
+        name: Woodsmoke today
         color: grey
         state_content:
-          - level_icon
           - state
         vertical: false
         features_position: bottom
       - type: tile
         entity: sensor.airhealth_air_quality_day0
-        name: Air Quality
+        name: Air quality today
         color: grey
         state_content:
-          - level_icon
           - state
         vertical: false
         features_position: bottom

@@ -86,4 +86,4 @@ class AirHealthConfigFlow(ConfigFlow, domain=DOMAIN):
             }
         )
 
-        return self.async_show_form(step_id="endpoints", data_schema=schema)
+        return self.async_show_form(step_id="endpoints", data_schema=schema, errors={})

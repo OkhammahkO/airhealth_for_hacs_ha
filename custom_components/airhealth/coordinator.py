@@ -1,7 +1,7 @@
 """DataUpdateCoordinator for AirHealth integration."""
 
 from collections.abc import Callable
-from datetime import datetime, timedelta, timezone
+from datetime import datetime
 import logging
 from typing import Any
 from zoneinfo import ZoneInfo
@@ -17,8 +17,6 @@ from .const import API_ENDPOINTS, CONF_SAL_CODE, DOMAIN
 _LOGGER = logging.getLogger(__name__)
 
 type AirHealthConfigEntry = ConfigEntry["AirHealthDataUpdateCoordinator"]
-
-UPDATE_INTERVAL = timedelta(hours=6)
 
 
 class AirHealthDataUpdateCoordinator(DataUpdateCoordinator[dict[str, Any]]):
@@ -42,7 +40,6 @@ class AirHealthDataUpdateCoordinator(DataUpdateCoordinator[dict[str, Any]]):
             _LOGGER,
             config_entry=config_entry,
             name=DOMAIN,
-            update_interval=UPDATE_INTERVAL,
         )
 
     def setup_scheduled_updates(self) -> None:
@@ -51,23 +48,21 @@ class AirHealthDataUpdateCoordinator(DataUpdateCoordinator[dict[str, Any]]):
             if not self.config_entry.data.get(endpoint_key):
                 continue
 
-            update_hour = endpoint_info["update_hour"]
-            update_minute = endpoint_info["update_minute"]
-
-            unsub = async_track_time_change(
-                self.hass,
-                self._async_scheduled_refresh,
-                hour=update_hour,
-                minute=update_minute,
-                second=0,
-            )
-            self._unsub_trackers.append(unsub)
-            _LOGGER.debug(
-                "Scheduled daily refresh for %s at %02d:%02d AEST",
-                endpoint_key,
-                update_hour,
-                update_minute,
-            )
+            for hour, minute in endpoint_info["update_times"]:
+                unsub = async_track_time_change(
+                    self.hass,
+                    self._async_scheduled_refresh,
+                    hour=hour,
+                    minute=minute,
+                    second=0,
+                )
+                self._unsub_trackers.append(unsub)
+                _LOGGER.debug(
+                    "Scheduled daily refresh for %s at %02d:%02d AEST",
+                    endpoint_key,
+                    hour,
+                    minute,
+                )
 
     async def _async_scheduled_refresh(self, now) -> None:
         """Handle scheduled refresh."""
