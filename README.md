@@ -21,7 +21,7 @@ For more details see thier [docs](https://api-public.airhealthservices.au/docs/#
 ## Requirements
 
 - Home Assistant + [HACS](https://www.hacs.xyz/)
-- AirHealth API subscription — [get one here](https://www.airhealthlab.com/index.php/airhealth-api) (paid service)
+- AirHealth API subscription - [get one here](https://api-public.airhealthservices.au/docs/) (paid service)
 
 ## Installation
 
