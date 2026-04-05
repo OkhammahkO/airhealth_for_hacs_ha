@@ -19,7 +19,7 @@ _LOGGER = logging.getLogger(__name__)
 
 AEST = ZoneInfo("Australia/Sydney")
 
-AirHealthConfigEntry: TypeAlias = ConfigEntry["AirHealthDataUpdateCoordinator"]
+AirHealthConfigEntry: TypeAlias = "ConfigEntry[AirHealthDataUpdateCoordinator]"
 
 
 class AirHealthDataUpdateCoordinator(DataUpdateCoordinator[dict[str, Any]]):
@@ -83,7 +83,7 @@ class AirHealthDataUpdateCoordinator(DataUpdateCoordinator[dict[str, Any]]):
                     local_dt.minute,
                 )
 
-    async def _async_scheduled_refresh(self, now) -> None:
+    async def _async_scheduled_refresh(self, _now: datetime) -> None:
         """Handle scheduled refresh."""
         await self.async_request_refresh()
 
