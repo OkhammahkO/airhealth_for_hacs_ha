@@ -6,7 +6,11 @@ from typing import Any
 import voluptuous as vol
 from aiohttp import ClientError
 from homeassistant.config_entries import ConfigFlow
-from homeassistant.data_entry_flow import ConfigFlowResult
+
+try:
+    from homeassistant.config_entries import ConfigFlowResult
+except ImportError:
+    from homeassistant.data_entry_flow import FlowResult as ConfigFlowResult  # type: ignore[no-redef]
 from homeassistant.helpers import selector
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 
