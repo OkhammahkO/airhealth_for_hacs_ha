@@ -5,10 +5,9 @@ from typing import Any
 
 import voluptuous as vol
 from aiohttp import ClientError
-
 from homeassistant.config_entries import ConfigFlow, ConfigFlowResult
-from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.helpers import selector
+from homeassistant.helpers.aiohttp_client import async_get_clientsession
 
 from .api import AirHealthApiClient, AirHealthAuthError, AirHealthDataError
 from .const import API_ENDPOINTS, CONF_API_KEY, CONF_SAL_CODE, DOMAIN

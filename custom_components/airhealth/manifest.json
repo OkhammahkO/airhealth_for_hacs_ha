@@ -1,14 +1,14 @@
 {
   "domain": "airhealth",
   "name": "AirHealth",
-  "config_flow": true,
-  "documentation": "https://github.com/OkhammahkO/airhealth_for_hacs_ha",
-  "issue_tracker": "https://github.com/OkhammahkO/airhealth_for_hacs_ha/issues",
   "codeowners": [
     "@OkhammahkO"
   ],
-  "version": "0.2.0",
-  "requirements": [],
+  "config_flow": true,
+  "documentation": "https://github.com/OkhammahkO/airhealth_for_hacs_ha",
+  "integration_type": "service",
   "iot_class": "cloud_polling",
-  "integration_type": "service"
+  "issue_tracker": "https://github.com/OkhammahkO/airhealth_for_hacs_ha/issues",
+  "requirements": [],
+  "version": "0.2.0"
 }

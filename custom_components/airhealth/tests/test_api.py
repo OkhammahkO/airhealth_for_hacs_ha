@@ -1,6 +1,6 @@
 """Test AirHealth API client."""
 
-from unittest.mock import AsyncMock, MagicMock, patch
+from unittest.mock import AsyncMock
 
 import aiohttp
 import pytest

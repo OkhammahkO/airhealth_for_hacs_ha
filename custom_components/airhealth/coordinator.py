@@ -1,9 +1,9 @@
 """DataUpdateCoordinator for AirHealth integration."""
 
+import logging
 from collections.abc import Callable
 from datetime import datetime
-import logging
-from typing import Any
+from typing import Any, TypeAlias
 from zoneinfo import ZoneInfo
 
 from homeassistant.config_entries import ConfigEntry
@@ -12,14 +12,14 @@ from homeassistant.helpers.event import async_track_time_change
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
 from homeassistant.util import dt as dt_util
 
-AEST = ZoneInfo("Australia/Sydney")
-
 from .api import AirHealthApiClient, AirHealthAuthError, AirHealthDataError
 from .const import API_ENDPOINTS, CONF_SAL_CODE, DOMAIN
 
 _LOGGER = logging.getLogger(__name__)
 
-type AirHealthConfigEntry = ConfigEntry["AirHealthDataUpdateCoordinator"]
+AEST = ZoneInfo("Australia/Sydney")
+
+AirHealthConfigEntry: TypeAlias = ConfigEntry["AirHealthDataUpdateCoordinator"]
 
 
 class AirHealthDataUpdateCoordinator(DataUpdateCoordinator[dict[str, Any]]):
