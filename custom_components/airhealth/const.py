@@ -68,8 +68,7 @@ def summarize_grass_pollen(level: str | None) -> str:
 
 
 def summarize_allergen_breakdown(
-    overall_level: str | None,
-    allergens: list[dict[str, Any]] | None
+    overall_level: str | None, allergens: list[dict[str, Any]] | None
 ) -> str:
     """Generate summary for other allergens with selective breakdown.
 

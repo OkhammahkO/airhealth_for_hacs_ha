@@ -1,4 +1,5 @@
 """API for AirHealth."""
+
 import json
 import logging
 from typing import Any
@@ -7,15 +8,19 @@ import aiohttp
 
 _LOGGER = logging.getLogger(__name__)
 
+
 # Define custom exceptions for better error handling
 class AirHealthApiException(Exception):
     """Base exception for AirHealth API errors."""
 
+
 class AirHealthAuthError(AirHealthApiException):
     """Exception for authentication errors."""
 
+
 class AirHealthDataError(AirHealthApiException):
     """Exception for data retrieval errors."""
+
 
 class AirHealthApiClient:
     """Generic API Client for AirHealth."""
@@ -49,4 +54,6 @@ class AirHealthApiClient:
                 response.status,
                 await response.text(),
             )
-            raise AirHealthDataError(f"API request failed with status: {response.status}")
+            raise AirHealthDataError(
+                f"API request failed with status: {response.status}"
+            )

@@ -73,6 +73,8 @@ jobs:
           pip install pytest pytest-homeassistant-custom-component pytest-cov
 
       - name: Run tests with coverage
+        env:
+          PYTHONPATH: ${{ github.workspace }}
         run: |
           pytest custom_components/airhealth/tests/ \
             --cov=custom_components.airhealth \

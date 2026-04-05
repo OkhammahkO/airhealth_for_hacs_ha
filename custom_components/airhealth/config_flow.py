@@ -26,7 +26,9 @@ class AirHealthConfigFlow(ConfigFlow, domain=DOMAIN):
         self._api_key: str | None = None
         self._sal_code: str | None = None
 
-    async def async_step_user(self, user_input: dict[str, Any] | None = None) -> ConfigFlowResult:
+    async def async_step_user(
+        self, user_input: dict[str, Any] | None = None
+    ) -> ConfigFlowResult:
         """Handle the initial step."""
         errors = {}
 
@@ -57,7 +59,9 @@ class AirHealthConfigFlow(ConfigFlow, domain=DOMAIN):
             data_schema=vol.Schema(
                 {
                     vol.Required(CONF_API_KEY): selector.TextSelector(
-                        selector.TextSelectorConfig(type=selector.TextSelectorType.PASSWORD)
+                        selector.TextSelectorConfig(
+                            type=selector.TextSelectorType.PASSWORD
+                        )
                     ),
                     vol.Required(CONF_SAL_CODE): str,
                 }
@@ -65,7 +69,9 @@ class AirHealthConfigFlow(ConfigFlow, domain=DOMAIN):
             errors=errors,
         )
 
-    async def async_step_endpoints(self, user_input: dict[str, Any] | None = None) -> ConfigFlowResult:
+    async def async_step_endpoints(
+        self, user_input: dict[str, Any] | None = None
+    ) -> ConfigFlowResult:
         """Handle endpoint selection step."""
         errors = {}
 
@@ -90,4 +96,6 @@ class AirHealthConfigFlow(ConfigFlow, domain=DOMAIN):
             }
         )
 
-        return self.async_show_form(step_id="endpoints", data_schema=schema, errors=errors)
+        return self.async_show_form(
+            step_id="endpoints", data_schema=schema, errors=errors
+        )

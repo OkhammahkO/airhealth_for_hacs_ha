@@ -42,9 +42,7 @@ def mock_config_entry() -> MockConfigEntry:
 @pytest.fixture
 def mock_airhealth_api() -> Generator[AsyncMock]:
     """Mock AirHealthApiClient."""
-    with patch(
-        "custom_components.airhealth.AirHealthApiClient", autospec=True
-    ) as mock:
+    with patch("custom_components.airhealth.AirHealthApiClient", autospec=True) as mock:
         client = mock.return_value
 
         async def mock_get_data(path: str, sal_code: str):

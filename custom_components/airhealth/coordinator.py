@@ -61,7 +61,9 @@ class AirHealthDataUpdateCoordinator(DataUpdateCoordinator[dict[str, Any]]):
 
             for hour, minute in endpoint_info["update_times"]:
                 # Build an AEST datetime and convert to HA's local timezone
-                aest_dt = datetime(today.year, today.month, today.day, hour, minute, tzinfo=AEST)
+                aest_dt = datetime(
+                    today.year, today.month, today.day, hour, minute, tzinfo=AEST
+                )
                 local_dt = aest_dt.astimezone(ha_tz)
 
                 unsub = async_track_time_change(

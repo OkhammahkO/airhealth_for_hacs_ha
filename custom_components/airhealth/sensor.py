@@ -40,9 +40,7 @@ class AirHealthSensor(AirHealthEntity, SensorEntity):
         self._sensor_key = sensor_key
         self._day_idx = day_idx
 
-        self._attr_unique_id = (
-            f"{coordinator.config_entry.entry_id}_{endpoint_key}_{sensor_key}_day{day_idx}"
-        )
+        self._attr_unique_id = f"{coordinator.config_entry.entry_id}_{endpoint_key}_{sensor_key}_day{day_idx}"
         self._attr_translation_key = f"{sensor_key}_day{day_idx}"
         self._attr_icon = icon
 
@@ -80,21 +78,31 @@ class AirHealthSensor(AirHealthEntity, SensorEntity):
                 attributes = {"date": day_data.get("date")}
 
                 # Add level icon for pollen sensors only (not air quality)
-                if self._endpoint_key in (ENDPOINT_GRASS_POLLEN, ENDPOINT_OTHER_ALLERGENS):
+                if self._endpoint_key in (
+                    ENDPOINT_GRASS_POLLEN,
+                    ENDPOINT_OTHER_ALLERGENS,
+                ):
                     level = self.native_value
                     if level:
                         attributes["level_icon"] = get_level_icon(str(level))
 
                 # Add summary for grass pollen (day0 and day1 only)
-                if self._endpoint_key == ENDPOINT_GRASS_POLLEN and self._day_idx in (0, 1):
+                if self._endpoint_key == ENDPOINT_GRASS_POLLEN and self._day_idx in (
+                    0,
+                    1,
+                ):
                     attributes["summary"] = summarize_grass_pollen(self.native_value)
 
                 # Add metadata from coordinator
                 endpoint_data = self.coordinator.data.get(self._endpoint_key, {})
                 if "last_successful_update" in endpoint_data:
-                    attributes["last_successful_update"] = endpoint_data["last_successful_update"]
+                    attributes["last_successful_update"] = endpoint_data[
+                        "last_successful_update"
+                    ]
                 if "api_status" in endpoint_data:
-                    attributes["api_status"] = endpoint_data.get("api_status", "unavailable")
+                    attributes["api_status"] = endpoint_data.get(
+                        "api_status", "unavailable"
+                    )
 
                 # Add SAL code for location identification
                 attributes["sal_code"] = self.coordinator.sal_code
@@ -110,7 +118,9 @@ class AirHealthSensor(AirHealthEntity, SensorEntity):
                             allergen_copy = allergen.copy()
                             allergen_level = allergen.get("level")
                             if allergen_level:
-                                allergen_copy["level_icon"] = get_level_icon(allergen_level)
+                                allergen_copy["level_icon"] = get_level_icon(
+                                    allergen_level
+                                )
                             allergens_with_icons.append(allergen_copy)
                         attributes["allergens"] = allergens_with_icons
 

@@ -49,7 +49,10 @@ async def test_async_get_data_success(api_client, mock_session):
     }
     mock_session.get.assert_called_once()
     args, kwargs = mock_session.get.call_args
-    assert args[0] == "https://api-public.airhealthservices.au/api/forecast/grass?sal=12345"
+    assert (
+        args[0]
+        == "https://api-public.airhealthservices.au/api/forecast/grass?sal=12345"
+    )
     assert kwargs["headers"]["Authorization"] == "Api-Key test_api_key"
 
 
@@ -126,17 +129,26 @@ async def test_async_get_data_url_construction(api_client, mock_session):
     # Test grass endpoint
     await api_client.async_get_data("/forecast/grass", "12345")
     args, _ = mock_session.get.call_args
-    assert args[0] == "https://api-public.airhealthservices.au/api/forecast/grass?sal=12345"
+    assert (
+        args[0]
+        == "https://api-public.airhealthservices.au/api/forecast/grass?sal=12345"
+    )
 
     # Test other allergens endpoint
     await api_client.async_get_data("/forecast/other", "67890")
     args, _ = mock_session.get.call_args
-    assert args[0] == "https://api-public.airhealthservices.au/api/forecast/other?sal=67890"
+    assert (
+        args[0]
+        == "https://api-public.airhealthservices.au/api/forecast/other?sal=67890"
+    )
 
     # Test air quality endpoint
     await api_client.async_get_data("/forecast/airquality", "11111")
     args, _ = mock_session.get.call_args
-    assert args[0] == "https://api-public.airhealthservices.au/api/forecast/airquality?sal=11111"
+    assert (
+        args[0]
+        == "https://api-public.airhealthservices.au/api/forecast/airquality?sal=11111"
+    )
 
 
 async def test_async_get_data_authorization_header(api_client, mock_session):
