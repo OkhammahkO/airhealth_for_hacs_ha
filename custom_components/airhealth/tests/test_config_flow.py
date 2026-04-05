@@ -44,6 +44,8 @@ async def test_form_user_valid_credentials(
             },
         )
 
+    await hass.async_block_till_done()
+
     assert result["type"] == FlowResultType.FORM
     assert result["step_id"] == "endpoints"
     assert result["errors"] == {}
