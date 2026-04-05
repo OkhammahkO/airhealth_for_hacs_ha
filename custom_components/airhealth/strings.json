@@ -20,13 +20,14 @@
         "data_description": {
           "grass_pollen": "Daily grass pollen levels and forecasts (Updated: 7:30 AM AEST)",
           "other_allergens": "Tree, weed, and mold allergen levels (Updated: 9:00 AM AEST)",
-          "aq_woodsmoke": "Air quality index and woodsmoke levels (Updated: 9:00 AM AEST)"
+          "aq_woodsmoke": "Air quality index and woodsmoke levels (Updated: 9 AM, 1 PM, 5 PM, 9 PM AEST)"
         }
       }
     },
     "error": {
       "cannot_connect": "Failed to connect to the AirHealth API",
       "invalid_auth": "Invalid API key or SAL code",
+      "no_endpoints_selected": "Select at least one data source",
       "unknown": "Unexpected error occurred"
     },
     "abort": {

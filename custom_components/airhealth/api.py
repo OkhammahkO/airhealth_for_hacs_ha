@@ -1,4 +1,5 @@
 """API for AirHealth."""
+import json
 import logging
 from typing import Any
 
@@ -34,7 +35,12 @@ class AirHealthApiClient:
         _LOGGER.debug("Fetching data from: %s", url)
         async with self._session.get(url, headers=headers) as response:
             if response.status == 200:
-                return await response.json()
+                try:
+                    return await response.json()
+                except (aiohttp.ContentTypeError, json.JSONDecodeError) as err:
+                    raise AirHealthDataError(
+                        f"Invalid JSON response from API: {err}"
+                    ) from err
             if response.status in (401, 403):
                 raise AirHealthAuthError("API Key or SAL code is invalid.")
             _LOGGER.error(

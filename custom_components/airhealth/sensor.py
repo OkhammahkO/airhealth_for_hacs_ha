@@ -33,7 +33,6 @@ class AirHealthSensor(AirHealthEntity, SensorEntity):
         sensor_key: str,
         day_idx: int,
         icon: str,
-        entity_id_suffix: str,
     ) -> None:
         """Initialize the sensor."""
         super().__init__(coordinator)
@@ -46,14 +45,12 @@ class AirHealthSensor(AirHealthEntity, SensorEntity):
         )
         self._attr_translation_key = f"{sensor_key}_day{day_idx}"
         self._attr_icon = icon
-        # Suggest entity_id for cleaner IDs
-        self.entity_id = f"sensor.airhealth_{entity_id_suffix}_day{day_idx}"
 
     @property
     def native_value(self) -> StateType:
         """Return the state of the sensor."""
         if (
-            not self.coordinator.data
+            self.coordinator.data is None
             or self._endpoint_key not in self.coordinator.data
         ):
             return None
@@ -71,7 +68,7 @@ class AirHealthSensor(AirHealthEntity, SensorEntity):
     def extra_state_attributes(self) -> dict[str, Any]:
         """Return the state attributes."""
         if (
-            not self.coordinator.data
+            self.coordinator.data is None
             or self._endpoint_key not in self.coordinator.data
         ):
             return {}
@@ -148,7 +145,7 @@ async def async_setup_entry(
     """Set up the sensor platform."""
     coordinator = entry.runtime_data
 
-    if not coordinator.data:
+    if coordinator.data is None:
         return
 
     sensors = []
@@ -164,7 +161,6 @@ async def async_setup_entry(
                     "grass_level",
                     day_idx,
                     "mdi:grass",
-                    "grass",
                 )
             )
 
@@ -179,7 +175,6 @@ async def async_setup_entry(
                     "overall_level",
                     day_idx,
                     "mdi:flower-pollen",
-                    "other_allergens",
                 )
             )
 
@@ -195,7 +190,6 @@ async def async_setup_entry(
                         "aq_level",
                         day_idx,
                         "mdi:air-filter",
-                        "air_quality",
                     ),
                     AirHealthSensor(
                         coordinator,
@@ -203,7 +197,6 @@ async def async_setup_entry(
                         "woodsmoke_level",
                         day_idx,
                         "mdi:smoke",
-                        "woodsmoke",
                     ),
                 ]
             )
