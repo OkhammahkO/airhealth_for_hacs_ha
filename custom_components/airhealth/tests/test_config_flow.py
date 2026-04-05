@@ -32,12 +32,9 @@ async def test_form_user_valid_credentials(
         DOMAIN, context={"source": config_entries.SOURCE_USER}
     )
 
-    with (
-        patch("custom_components.airhealth.config_flow.async_get_clientsession"),
-        patch(
-            "custom_components.airhealth.config_flow.AirHealthApiClient",
-            return_value=mock_airhealth_api,
-        ),
+    with patch(
+        "custom_components.airhealth.config_flow.AirHealthApiClient",
+        return_value=mock_airhealth_api,
     ):
         result = await hass.config_entries.flow.async_configure(
             result["flow_id"],

@@ -22,6 +22,19 @@ def auto_enable_custom_integrations(enable_custom_integrations):
     yield
 
 
+@pytest.fixture(autouse=True)
+def mock_aiohttp_client_session() -> Generator[None]:
+    """Prevent aiohttp from creating background threads during config flow tests.
+
+    async_get_clientsession creates a TCPConnector which spawns a
+    _run_safe_shutdown_loop daemon thread.  pytest-homeassistant-custom-component's
+    verify_cleanup fixture flags any new threads and fails the test, so we patch
+    the call out globally.
+    """
+    with patch("custom_components.airhealth.config_flow.async_get_clientsession"):
+        yield
+
+
 @pytest.fixture
 def mock_config_entry() -> MockConfigEntry:
     """Return mock config entry."""
