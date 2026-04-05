@@ -3,7 +3,7 @@
 import logging
 from collections.abc import Callable
 from datetime import datetime
-from typing import Any, TypeAlias
+from typing import Any
 from zoneinfo import ZoneInfo
 
 from homeassistant.config_entries import ConfigEntry
@@ -19,7 +19,7 @@ _LOGGER = logging.getLogger(__name__)
 
 AEST = ZoneInfo("Australia/Sydney")
 
-AirHealthConfigEntry: TypeAlias = "ConfigEntry[AirHealthDataUpdateCoordinator]"
+type AirHealthConfigEntry = ConfigEntry["AirHealthDataUpdateCoordinator"]
 
 
 class AirHealthDataUpdateCoordinator(DataUpdateCoordinator[dict[str, Any]]):
